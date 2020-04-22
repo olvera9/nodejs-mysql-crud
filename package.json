@@ -4,8 +4,8 @@
   "description": "NodeJS MySQL CRUD",
   "main": "src/index.js",
   "scripts": {
-    "start":  "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "test": "node_modules/standard/bin/cmd.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +29,8 @@
     "express-myconnection": "^1.0.4",
     "morgan": "^1.9.1",
     "mysql": "^2.16.0"
+  },
+  "devDependencies": {
+    "standard": "^14.3.3"
   }
 }
