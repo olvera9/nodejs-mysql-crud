@@ -1,3 +1,4 @@
+const environment = require('./environment.js');
 const express = require('express'),
     path = require('path'),
     morgan = require('morgan'),
@@ -10,18 +11,18 @@ const app = express();
 const customerRoutes = require('./routes/customer');
 
 // settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || environment.app.port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // middlewares
 app.use(morgan('dev'));
 app.use(myConnection(mysql, {
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    port: 3306,
-    database: 'nodejs2'
+    host: environment.mysql.host,
+    user: environment.mysql.user,
+    password: environment.mysql.password,
+    port: environment.mysql.port,
+    database: environment.mysql.database
 }, 'single'));
 app.use(express.urlencoded({extended: false}));
 
