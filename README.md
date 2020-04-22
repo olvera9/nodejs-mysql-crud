@@ -3,8 +3,13 @@
 Run this project by this command :
 
 1. `npm install`
-2. `nodemon src/index.js`
+2. `npm start`
 3. `localhost:3000`
+
+
+To test:
+
+`npm test`
 
 #### Screen shot
 
