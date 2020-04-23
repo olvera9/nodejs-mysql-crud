@@ -1,9 +1,9 @@
 module.exports = {
   mysql: {
-    host: 'localhost',
+    host: 'paystand-mysql',
     port: 3306,
-    user: 'root',
-    password: 'example',
+    user: 'paystand',
+    password: 'paystand',
     database: 'nodejs2'
   },
   app: {
