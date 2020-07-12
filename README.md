@@ -11,12 +11,17 @@ To test:
 
 `npm test`
 
+### Pre-requisites:
+- Start a mysql database
+- Execute `database/db.sql` script in msyql server to create database, table and user
+- If running in localhost, configure `/etc/hosts` to point *paystand-mysql* to localhost
+
 #### Screen shot
 
 Home Page
 
-![Home Page](img/home.png "Home Page")
+![Home Page](app/img/home.png "Home Page")
 
 Add New Customer
 
-![Add New Customer](img/add.png "Add New Customer")
+![Add New Customer](app/img/add.png "Add New Customer")

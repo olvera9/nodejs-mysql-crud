@@ -1,0 +1,44 @@
+version: "3"
+services:
+  paystand-mysql:
+    #image: mysql:5
+    build:
+      context: database
+    volumes:
+      - "data:/var/lib/mysql"
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: nodejs2
+      MYSQL_USER: paystand
+      MYSQL_PASSWORD: paystand
+    restart: always
+    networks:
+      - practice-ea
+  nodeapp:
+    depends_on:
+      - paystand-mysql
+    expose:
+    - 3000
+    restart: on-failure
+    build:
+      context: app
+    environment:
+      DATABASE_HOST: paystand-mysql
+    networks:
+      - practice-ea
+  nginx:
+    depends_on:
+      - nodeapp
+    ports:
+    - 81:80
+    restart: on-failure
+    build:
+      context: nginx
+    networks:
+      - practice-ea
+volumes:
+  data:
+networks:
+  practice-ea:
