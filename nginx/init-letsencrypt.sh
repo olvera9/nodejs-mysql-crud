@@ -5,7 +5,11 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(practice-ea.olvera9.com)
+#domains=(practice-ea.olvera9.com)
+#script_dir=$(dirname "$0")
+#basedir=/home/joaquin/WebstormProjects/nodejs-mysql-crud
+#echo "$script_dir"
+domains=("olvera9.com" "www.olvera9.com")
 rsa_key_size=4096
 data_path="./data/certbot"
 email="joaquin.olvera@softtek.com" # Adding a valid address is strongly recommended
@@ -66,7 +70,8 @@ esac
 # Enable staging mode if needed
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
-docker-compose run --rm --entrypoint "\
+docker-compose run --rm \
+  --entrypoint "\
   certbot certonly --webroot -w /var/www/certbot \
     $staging_arg \
     $email_arg \
@@ -74,6 +79,10 @@ docker-compose run --rm --entrypoint "\
     --rsa-key-size $rsa_key_size \
     --agree-tos \
     --force-renewal" certbot
+#  -v "$basedir"/data/certbot/conf:/etc/letsencrypt \
+#  -v "$basedir"/data/certbot/lib:/var/lib/letsencrypt \
+#  -v "$basedir"/data/certbot/www:/var/www/certbot \
+#  -v "$basedir"/data/certbot/log:/var/log/letsencrypt \
 echo
 
 echo "### Reloading nginx ..."
