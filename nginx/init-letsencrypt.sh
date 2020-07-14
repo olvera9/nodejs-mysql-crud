@@ -5,15 +5,15 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-#domains=(practice-ea.olvera9.com)
-#script_dir=$(dirname "$0")
-#basedir=/home/joaquin/WebstormProjects/nodejs-mysql-crud
-#echo "$script_dir"
 domains=("olvera9.com" "www.olvera9.com")
 rsa_key_size=4096
 data_path="./data/certbot"
 email="joaquin.olvera@softtek.com" # Adding a valid address is strongly recommended
-staging=0 # Set to 1 if you're testing your setup to avoid hitting request limits
+staging=1 # Set to 1 if you're testing your setup to avoid hitting request limits
+# If arg "prod" is set we will generate the cert by overriding $staging variable to 0
+if [ $1 = "prod" ]; then
+  staging=0
+fi
 
 if [ -d "$data_path" ]; then
   read -p "Existing data found for $domains. Continue and replace existing certificate? (y/N) " decision
