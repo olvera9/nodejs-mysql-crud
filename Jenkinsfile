@@ -11,7 +11,7 @@ pipeline {
         stage('Clean') {
             steps {
                 sshagent(credentials:['2d516ecb-bdbe-4b0a-b7dc-73c285d2fa6a']) {
-                    sh 'ssh -o StrictHostKeyChecking=no $USER@$REMOTE cd ~/projects/nodejs-mysql-crud && docker-compose down'
+                    sh 'ssh -o StrictHostKeyChecking=no $USER@$REMOTE cd /projects/nodejs-mysql-crud && docker-compose down'
                 }
             }
         }
