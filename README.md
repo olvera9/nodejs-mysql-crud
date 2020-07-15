@@ -16,7 +16,7 @@ To test:
 - Execute `database/db.sql` script in msyql server to create database, table and user
 - If running in localhost, configure `/etc/hosts` to point *paystand-mysql* to localhost
 - [Install certs](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
-- Configure jenkins.
+- Configure jenkins to trigger jobs.
 
 #### Screen shot
 
