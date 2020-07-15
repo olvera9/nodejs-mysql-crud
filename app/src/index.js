@@ -1,5 +1,6 @@
 const environment = require('./environment.js')
 const express = require('express')
+//const statsd = require('express-statsd')
 const path = require('path')
 const morgan = require('morgan')
 const mysql = require('mysql')
@@ -16,6 +17,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 // middlewares
+//app.use(statsd({host: 'statsd', port: 8126}))
 app.use(morgan('dev'))
 app.use(myConnection(mysql, {
   host: environment.mysql.host,

@@ -24,19 +24,4 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ['prometheus:9090']
-
-  - job_name: 'docker'
-         # metrics_path defaults to '/metrics'
-         # scheme defaults to 'http'.
-
-    static_configs:
-      - targets: ['172.17.0.1:9323']
-  
-  - job_name: 'cadvisor'
-    scrape_interval: 5s
-    static_configs:
-    - targets: ['cadvisor:8080']
-  - job_name: 'exporter'
-    static_configs:
-      - targets: ['exporter:9100']
+      - targets: ['prometheus:9090', '172.17.0.1:9323', 'cadvisor:8080', 'nodeexporter:9100', 'nginxexporter:9113', 'mysqlexporter:9104', 'containerexporter:9104']

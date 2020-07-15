@@ -25,3 +25,7 @@ CREATE USER IF NOT EXISTS
 
 -- to grant permission
 GRANT ALL PRIVILEGES ON nodejs2.* TO 'paystand'@'%';
+
+CREATE USER 'exporter'@'%' IDENTIFIED BY 'XXXXXXXX';
+GRANT PROCESS, REPLICATION CLIENT ON *.* TO 'exporter'@'%';
+GRANT SELECT ON performance_schema.* TO 'exporter'@'%';

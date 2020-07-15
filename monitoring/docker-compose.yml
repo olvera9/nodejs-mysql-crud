@@ -20,11 +20,14 @@ services:
     - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - monitoring
+      - practice-ea
   grafana:
     depends_on:
       - prometheus
       - cadvisor
-      - exporter
+      - nodeexporter
+      - nginxexporter
+      - mysqlexporter
     image: grafana/grafana:latest
     volumes:
     - grafana:/var/lib/grafana
@@ -32,14 +35,43 @@ services:
     - 3000:3000
     networks:
       - monitoring
-  exporter:
+  nodeexporter:
     image: prom/node-exporter:latest
     ports:
     - 9100:9100
     networks:
       - monitoring
+  nginxexporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    entrypoint: "/usr/bin/exporter -nginx.scrape-uri http://nginx/nginx_status"
+    ports:
+    - 9113:9113
+    networks:
+      - monitoring
+      - practice-ea
+  mysqlexporter:
+    image: prom/mysqld-exporter:latest
+    ports:
+    - 9104:9104
+    environment:
+      DATA_SOURCE_NAME: "paystand:paystand@(paystand-mysql:3306)/nodejs2"
+    networks:
+      - monitoring
+      - practice-ea
+  containerexporter:
+    image: prom/container-exporter:latest
+    ports:
+    - 9105:9104
+    volumes:
+    - /sys/fs/cgroup:/group
+    - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - monitoring
 networks:
   monitoring:
     driver: bridge
+  practice-ea:
+    external:
+      name: nodejs-mysql-crud_practice-ea
 volumes:
   grafana:
