@@ -52,7 +52,7 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     networks:
       - practice-ea
-  # docker run -d --name jenkins -p 8000:8080 -p 50000:50000 -v ./data/jenkins:/var/jenkins_home jenkins/jenkins:lts-alpine
+  # docker run -d --name jenkins -p 8000:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-alpine
 networks:
   practice-ea:
     driver: bridge
