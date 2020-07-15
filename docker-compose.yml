@@ -31,8 +31,8 @@ services:
     depends_on:
       - nodeapp
     ports:
-    - 80:80
-    - 443:443
+    - 8080:80
+    - 8443:8443
     restart: on-failure
     image: nginx:stable-alpine
     networks:
@@ -52,15 +52,16 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     networks:
       - practice-ea
-  jenkins:
-    image: jenkins/jenkins:lts-alpine
-    ports:
-    - 8080:8080
-    - 5000:5000
-    volumes:
-    - ./data/jenkins:/var/jenkins_home
-    networks:
-      - practice-ea
+  # docker run -d --name jenkins -p 8000:8080 -p 50000:50000 -v ./data/jenkins:/var/jenkins_home jenkins/jenkins:lts-alpine
+  #jenkins:
+  #  image: jenkins/jenkins:lts-alpine
+  #  ports:
+  #  - 8080:8080
+  #  - 5000:5000
+  #  volumes:
+  #  - ./data/jenkins:/var/jenkins_home
+  #  networks:
+  #    - practice-ea
 networks:
   practice-ea:
     driver: bridge
