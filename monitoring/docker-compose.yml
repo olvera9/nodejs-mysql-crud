@@ -28,6 +28,7 @@ services:
       - nodeexporter
       - nginxexporter
       - mysqlexporter
+      - containerexporter
     image: grafana/grafana:latest
     volumes:
     - grafana:/var/lib/grafana
