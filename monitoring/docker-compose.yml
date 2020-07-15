@@ -1,0 +1,45 @@
+version: "3"
+services:
+  cadvisor:
+    image: google/cadvisor:latest
+    ports:
+    - 8090:8080
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:ro
+    - /sys:/sys:ro
+    - /var/lib/docker:/var/lib/docker:ro
+    - /dev/disk:/dev/disk:ro
+    networks:
+      - monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+    - 9090:9090
+    volumes:
+    - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring
+  grafana:
+    depends_on:
+      - prometheus
+      - cadvisor
+      - exporter
+    image: grafana/grafana:latest
+    volumes:
+    - grafana:/var/lib/grafana
+    ports:
+    - 3000:3000
+    networks:
+      - monitoring
+  exporter:
+    image: prom/node-exporter:latest
+    ports:
+    - 9100:9100
+    networks:
+      - monitoring
+networks:
+  monitoring:
+    driver: bridge
+volumes:
+  grafana:
