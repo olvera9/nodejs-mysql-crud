@@ -21,14 +21,15 @@ services:
     networks:
       - monitoring
       - practice-ea
-  grafana:
     depends_on:
-      - prometheus
       - cadvisor
       - nodeexporter
       - nginxexporter
       - mysqlexporter
       - containerexporter
+  grafana:
+    depends_on:
+      - prometheus
     image: grafana/grafana:latest
     volumes:
     - grafana:/var/lib/grafana
