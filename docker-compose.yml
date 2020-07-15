@@ -53,15 +53,6 @@ services:
     networks:
       - practice-ea
   # docker run -d --name jenkins -p 8000:8080 -p 50000:50000 -v ./data/jenkins:/var/jenkins_home jenkins/jenkins:lts-alpine
-  #jenkins:
-  #  image: jenkins/jenkins:lts-alpine
-  #  ports:
-  #  - 8080:8080
-  #  - 5000:5000
-  #  volumes:
-  #  - ./data/jenkins:/var/jenkins_home
-  #  networks:
-  #    - practice-ea
 networks:
   practice-ea:
     driver: bridge
