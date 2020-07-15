@@ -2,8 +2,8 @@ version: "3"
 services:
   cadvisor:
     image: google/cadvisor:latest
-    ports:
-    - 8090:8080
+    expose:
+    - 8080
     volumes:
     - /:/rootfs:ro
     - /var/run:/var/run:ro
@@ -37,22 +37,22 @@ services:
       - monitoring
   nodeexporter:
     image: prom/node-exporter:latest
-    ports:
-    - 9100:9100
+    expose:
+    - 9100
     networks:
       - monitoring
   nginxexporter:
     image: nginx/nginx-prometheus-exporter:latest
     entrypoint: "/usr/bin/exporter -nginx.scrape-uri http://nginx/nginx_status"
-    ports:
-    - 9113:9113
+    expose:
+    - 9113
     networks:
       - monitoring
       - practice-ea
   mysqlexporter:
     image: prom/mysqld-exporter:latest
-    ports:
-    - 9104:9104
+    expose:
+    - 9104
     environment:
       DATA_SOURCE_NAME: "paystand:paystand@(paystand-mysql:3306)/nodejs2"
     networks:
@@ -60,8 +60,8 @@ services:
       - practice-ea
   containerexporter:
     image: prom/container-exporter:latest
-    ports:
-    - 9105:9104
+    expose:
+    - 9104
     volumes:
     - /sys/fs/cgroup:/group
     - /var/run/docker.sock:/var/run/docker.sock
