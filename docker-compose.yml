@@ -31,8 +31,8 @@ services:
     depends_on:
       - nodeapp
     ports:
-    - 8080:80
-    - 8443:8443
+    - 80:80
+    - 443:443
     restart: on-failure
     image: nginx:stable-alpine
     networks:
