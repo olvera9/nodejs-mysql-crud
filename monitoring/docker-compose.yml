@@ -30,6 +30,7 @@ services:
   grafana:
     depends_on:
       - prometheus
+      - filebeat
     image: grafana/grafana:latest
     volumes:
     - grafana:/var/lib/grafana
@@ -69,6 +70,28 @@ services:
     - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - monitoring
+  elk:
+    image: sebp/elk:780
+    ports:
+    - 5601:5601
+    - 9200:9200
+    expose:
+      - 5044
+    volumes:
+    - elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - monitoring
+  filebeat:
+    image: elastic/filebeat:7.8.0
+    user: root
+    depends_on:
+      - elk
+    volumes:
+    - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+    - /var/lib/docker:/var/lib/docker:ro
+    - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - monitoring
 networks:
   monitoring:
     driver: bridge
@@ -77,3 +100,4 @@ networks:
       name: nodejs-mysql-crud_practice-ea
 volumes:
   grafana:
+  elasticsearch:
