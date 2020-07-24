@@ -4,7 +4,7 @@ services:
     build:
       context: database
     volumes:
-      - ./data/database:/var/lib/mysql
+      - /docker/volumes/mysql:/var/lib/mysql
     expose:
     - 3306
     environment:
@@ -39,16 +39,16 @@ services:
       - practice-ea
     volumes:
     - ./data/nginx:/etc/nginx/conf.d
-    - ./data/certbot/conf:/etc/letsencrypt
-    - ./data/certbot/www:/var/www/certbot
+    - /docker/volumes/certbot/conf:/etc/letsencrypt
+    - /docker/volumes/certbot/www:/var/www/certbot
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
   certbot:
     image: certbot/certbot
     volumes:
-    - ./data/certbot/conf:/etc/letsencrypt
-    - ./data/certbot/www:/var/www/certbot
-    - ./data/certbot/lib:/var/lib/letsencrypt
-    - ./data/certbot/log:/var/log/letsencrypt
+    - /docker/volumes/certbot/conf:/etc/letsencrypt
+    - /docker/volumes/certbot/www:/var/www/certbot
+    - /docker/volumes/certbot/lib:/var/lib/letsencrypt
+    - /docker/volumes/certbot/log:/var/log/letsencrypt
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     networks:
       - practice-ea

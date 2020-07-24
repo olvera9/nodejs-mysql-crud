@@ -1,8 +1,18 @@
 filebeat.inputs:
-  - type: container
-    paths:
-      - '/var/lib/docker/containers/*/*.log'
-
+  #############################################
+  # configuration for 7+ version
+  #- type: container
+  #  paths:
+  #    - '/var/lib/docker/containers/*/*.log'
+  #############################################
+  # configuration for <= 6 version
+  - type: docker
+    containers:
+      path: "/var/lib/docker/containers"
+      stream: "stdout"
+      ids:
+        - "*"
+  #############################################
 processors:
   - add_docker_metadata:
       host: "unix:///var/run/docker.sock"
@@ -15,7 +25,7 @@ processors:
 output.elasticsearch:
   hosts: ["elk:9200"]
   indices:
-    - index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"
+    - index: "filebeat-%{+yyyy.MM.dd}"
 
 logging.json: true
 logging.metrics.enabled: false

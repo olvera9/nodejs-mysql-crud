@@ -18,7 +18,7 @@ services:
     - 9090:9090
     volumes:
     - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    - prometheus:/prometheus
+    - /docker/volumes/prometheus:/prometheus
     networks:
       - monitoring
       - practice-ea
@@ -34,7 +34,7 @@ services:
       - filebeat
     image: grafana/grafana:latest
     volumes:
-    - grafana:/var/lib/grafana
+    - /docker/volumes/grafana:/var/lib/grafana
     ports:
     - 3000:3000
     networks:
@@ -72,14 +72,14 @@ services:
     networks:
       - monitoring
   elk:
-    image: sebp/elk:780
+    image: sebp/elk:683
     ports:
     - 5601:5601
     - 9200:9200
     expose:
       - 5044
     volumes:
-    - elasticsearch:/usr/share/elasticsearch/data
+    - /docker/volumes/elasticsearch:/usr/share/elasticsearch/data
     networks:
       - monitoring
     ulimits:
@@ -87,7 +87,7 @@ services:
         soft: 65536
         hard: 65536
   filebeat:
-    image: elastic/filebeat:7.8.0
+    image: elastic/filebeat:6.8.10
     user: root
     depends_on:
       - elk
@@ -103,7 +103,3 @@ networks:
   practice-ea:
     external:
       name: nodejs-mysql-crud_practice-ea
-volumes:
-  grafana:
-  elasticsearch:
-  prometheus:

@@ -7,12 +7,16 @@ fi
 
 domains=("ea.olvera9.com")
 rsa_key_size=4096
-data_path="./data/certbot"
+data_path="/docker/volumes/certbot"
 email="joaquin.olvera@softtek.com" # Adding a valid address is strongly recommended
 staging=1 # Set to 1 if you're testing your setup to avoid hitting request limits
 # If arg "prod" is set we will generate the cert by overriding $staging variable to 0
 if [ "$1" = "prod" ]; then
   staging=0
+else
+  echo "###################################################################################"
+  echo "################### DEBUGGING mode, certs will not be generated ###################"
+  echo "###################################################################################"
 fi
 
 if [ -d "$data_path" ]; then
