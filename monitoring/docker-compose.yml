@@ -33,7 +33,7 @@ services:
     depends_on:
       - prometheus
       - filebeat
-    image: grafana/grafana:latest
+    image: grafana/grafana:6.7.4
     user: root
     volumes:
     - /docker/volumes/grafana:/var/lib/grafana
