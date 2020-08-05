@@ -3,6 +3,7 @@ services:
   paystand-mysql:
     build:
       context: database
+    image: localhost:5000/mysql
     volumes:
       - /docker/volumes/mysql:/var/lib/mysql
     expose:
@@ -12,7 +13,7 @@ services:
       MYSQL_DATABASE: nodejs2
       MYSQL_USER: paystand
       MYSQL_PASSWORD: paystand
-    restart: always
+    restart: on-failure
     networks:
       - practice-ea
   nodeapp:
@@ -23,6 +24,7 @@ services:
     restart: on-failure
     build:
       context: app
+    image: localhost:5000/nodejsapp
     environment:
       DATABASE_HOST: paystand-mysql
     networks:
