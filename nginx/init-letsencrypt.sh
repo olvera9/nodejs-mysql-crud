@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=("ea.olvera9.com")
+domains=("practice.olvera9.com")
 rsa_key_size=4096
 data_path="/docker/volumes/certbot"
 email="joaquin.olvera@softtek.com" # Adding a valid address is strongly recommended
@@ -83,11 +83,8 @@ docker-compose run --rm \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
     --force-renewal" certbot
-#  -v "$basedir"/data/certbot/conf:/etc/letsencrypt \
-#  -v "$basedir"/data/certbot/lib:/var/lib/letsencrypt \
-#  -v "$basedir"/data/certbot/www:/var/www/certbot \
-#  -v "$basedir"/data/certbot/log:/var/log/letsencrypt \
 echo
 
 echo "### Reloading nginx ..."
 docker-compose exec nginx nginx -s reload
+
